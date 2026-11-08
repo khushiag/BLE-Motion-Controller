@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tilt Drive</title>
+    <style>
+      :root { --accent: #4f7cff; --pink: #ff4fd8; --cyan: #29d3ff; --text: #e6e9f2; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0414; color: var(--text);
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif; }
+      canvas { display: block; }
+
+      .hud { position: fixed; top: 16px; padding: 14px 16px; border-radius: 14px;
+        background: rgba(14, 8, 28, 0.7); backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 79, 216, 0.25); font-variant-numeric: tabular-nums; }
+      .hud.left { left: 16px; min-width: 200px; }
+      .hud.right { right: 16px; text-align: right; max-width: 300px; }
+      .hud h1 { margin: 0 0 8px; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6; }
+      .row { display: flex; justify-content: space-between; gap: 18px; margin: 4px 0; font-size: 15px; }
+      .row span:first-child { opacity: 0.6; }
+      #score { font-size: 24px; font-weight: 700; }
+
+      button { font: inherit; font-size: 14px; padding: 9px 16px; border-radius: 9px; border: none;
+        background: var(--pink); color: #fff; cursor: pointer; margin-left: 6px; }
+      button.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.25); }
+      button:hover { filter: brightness(1.15); }
+      #status { margin-top: 10px; font-size: 13px; opacity: 0.8; }
+      #rate { font-size: 12px; opacity: 0.5; margin-top: 2px; }
+
+      #speedo { position: fixed; bottom: 26px; right: 30px; text-align: right; font-variant-numeric: tabular-nums; }
+      #speed { font-size: 64px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;
+        text-shadow: 0 0 24px rgba(41, 211, 255, 0.6); }
+      #speedo small { display: block; opacity: 0.6; letter-spacing: 0.2em; font-size: 12px; }
+
+      .help { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+        font-size: 12px; opacity: 0.45; white-space: nowrap; }
+      #debug { position: fixed; bottom: 34px; left: 50%; transform: translateX(-50%);
+        font: 12px ui-monospace, Consolas, monospace; opacity: 0.5; white-space: nowrap; }
+
+      #overlay { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none;
+        opacity: 0; transition: opacity 250ms; }
+      #overlay.show { opacity: 1; }
+      #overlay .card { text-align: center; padding: 28px 44px; border-radius: 18px;
+        background: rgba(14, 8, 28, 0.82); border: 1px solid rgba(255, 79, 216, 0.45);
+        box-shadow: 0 0 60px rgba(255, 79, 216, 0.25); }
+      #overlayTitle { font-size: 36px; font-weight: 800; margin: 0 0 8px; }
+      #overlaySub { opacity: 0.8; line-height: 1.6; }
+
+      #flash { position: fixed; inset: 0; background: #ff2a5c; opacity: 0; pointer-events: none; transition: opacity 400ms; }
+
+      @media (max-width: 700px) { .help, #debug { display: none; } #speed { font-size: 44px; } }
+    </style>
+  </head>
+  <body>
+    <div class="hud left">
+      <h1>Tilt Drive</h1>
+      <div class="row"><span>Score</span><span id="score">0</span></div>
+      <div class="row"><span>Distance</span><span id="dist">0 m</span></div>
+      <div class="row"><span>Orbs</span><span id="orbs">0</span></div>
+      <div class="row"><span>Best</span><span id="best">0</span></div>
+    </div>
+
+    <div class="hud right">
+      <button id="calibBtn" class="ghost">Calibrate</button>
+      <button id="connectBtn">Connect board</button>
+      <div id="status">Not connected</div>
+      <div id="rate">keyboard mode</div>
+    </div>
+
+    <div id="speedo"><span id="speed">0</span><small>KM/H</small></div>
+
+    <div id="flash"></div>
+    <div id="overlay" class="show"><div class="card">
+      <div id="overlayTitle">Tilt Drive</div>
+      <div id="overlaySub">Hold the board flat · tilt left/right to steer<br>tilt forward to speed up, back to brake<br><b>Press Space, or tilt forward and hold, to start</b></div>
+    </div></div>
+
+    <div id="debug"></div>
+    <div class="help">Tilt to steer (or arrow keys / WASD) · Space start · C calibrate · L latency test</div>
+
+    <script type="module" src="/src/drive.js"></script>
+  </body>
+</html>

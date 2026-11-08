@@ -1,0 +1,33 @@
+# ── Only track these top-level folders ─────────────────────────
+# (everything else in C:\NXP\projects, like hello_world, is ignored)
+/*
+!/.gitignore
+!/README.md
+!/tilt_ble/
+!/tilt_reader/
+!/tilt-maze/
+
+# ── Never push these, in any folder ────────────────────────────
+# NXP SDK copy (huge, re-downloadable)
+**/__repo__/
+# Build output
+**/debug/
+**/release/
+**/build/
+**/dist/
+*.elf
+*.bin
+*.srec
+*.hex
+*.map
+# Web dependencies (re-created by `npm install`)
+**/node_modules/
+# Editor settings with paths specific to your laptop
+**/.vscode/
+# Logs and OS junk
+*.log
+.DS_Store
+Thumbs.db
+# Environment / secret files, just in case you add any later
+.env
+.env.*

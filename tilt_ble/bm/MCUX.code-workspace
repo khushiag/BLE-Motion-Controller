@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../../../MIT/Projects/MCUX"
+		},
+		{
+			"name": "frdmmcxw71_hello_world",
+			"path": "../../frdmmcxw71_hello_world"
+		},
+		{
+			"name": "tilt_reader",
+			"path": "../../tilt_reader"
+		},
+		{
+			"name": "tilt_ble",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
